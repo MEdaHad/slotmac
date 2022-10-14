@@ -1,0 +1,2 @@
+# slotmac
+Slot machine
