@@ -1,6 +1,14 @@
+import random
+
 from curses.ascii import isdigit
 from traceback import print_tb
 MAX_LINES = 3
+MAX_BET = 100
+MIN_BET=1
+
+ROWS = 3
+COLS = 3
+
 
 
 def deposit():
@@ -15,6 +23,21 @@ def deposit():
         else:
             print("Please enter a number.")
     return amount
+
+def get_bet():
+    while True:
+        amount = input("What would you like to bet on each line? $")
+        if amount.isdigit():
+            amount = int(amount)
+            if MIN_BET<=amount<=MAX_BET:
+                break
+            else:
+                print(f"Amount must be between ${MIN_BET} - ${MAX_BET}.")
+        else:
+            print("Please enter a number.")
+    return amount
+
+
 
 def get_number_of_lines():
     while True:
@@ -33,6 +56,14 @@ def get_number_of_lines():
 def main():
     balance = deposit()
     lines = get_number_of_lines()
-    print(balance, lines)
+    while True:
+        bet = get_bet()
+        total_bet= bet * lines
+        if total_bet > balance:
+            print(f"You dont have enough to bet that amount, your current balance is: ${balance}")
+        else:
+            break
+    
+    print(f"You are betting ${bet} on {lines} lines. Total bet is equal to: ${total_bet}")
 
 main()
